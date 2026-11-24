@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Skill Issues CP",
+  "version": "1.2.1",
+  "minimum_chrome_version": "116",
+  "description": "Import Codeforces problems, run sample tests in Skill Issues Compiler, and prepare Python submissions.",
+  "action": { "default_title": "Open Skill Issues Compiler" },
+  "permissions": ["storage"],
+  "host_permissions": ["https://skillissuescompiler.vercel.app/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "content_scripts": [{
+    "matches": ["https://codeforces.com/*"],
+    "js": ["content.js"]
+  }, {
+    "matches": ["https://skillissuescompiler.vercel.app/*"],
+    "js": ["compiler-bridge.js"],
+    "run_at": "document_start"
+  }, {
+    "matches": ["https://skillissuescompiler.vercel.app/*"],
+    "js": ["compiler-page.js"],
+    "world": "MAIN",
+    "run_at": "document_start"
+  }],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self'; worker-src 'self'"
+  },
+  "cross_origin_opener_policy": { "value": "same-origin" },
+  "cross_origin_embedder_policy": { "value": "require-corp" }
+}

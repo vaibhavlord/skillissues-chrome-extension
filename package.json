@@ -1,0 +1,11 @@
+{
+  "name": "skillissues",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/copy-runtime.mjs",
+    "build:extension": "npm run build && node scripts/build-extension.mjs"
+  },
+  "dependencies": {
+    "pyodide": "0.29.3"
+  }
+}
